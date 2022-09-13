@@ -35,3 +35,18 @@ def read_root():
 def read_cafes(db: Session = Depends(get_db)):
     cafes = crud.get_cafes(db)
     return cafes
+
+@app.put("/cafe", response_model=schemas.Cafe)
+def create_cafe(cafe: schemas.CafeCreate, db: Session = Depends(get_db)):
+    cafe = crud.create_cafe(db,cafe)
+    return cafe
+
+@app.patch("/cafe", response_model=schemas.Cafe)
+def update_cafe(cafe: schemas.CafeUpdate, db: Session = Depends(get_db)):
+    cafe = crud.update_cafe(db,cafe)
+    return cafe
+
+@app.get("/cafes/{cafe_id}", response_model=schemas.Cafe)
+def get_cafe(cafe_id: int, db: Session = Depends(get_db)):
+    cafe = crud.get_cafe(db, cafe_id)
+    return cafe

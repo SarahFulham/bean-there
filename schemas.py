@@ -15,3 +15,6 @@ class Cafe(CafeBase):
 
     class Config:
         orm_mode = True
+
+class CafeUpdate(Cafe):
+    pass
