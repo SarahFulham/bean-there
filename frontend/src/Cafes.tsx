@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { CafeCard } from './CafeCard';
 import './Cafes.css';
@@ -7,7 +8,7 @@ export function Cafes() {
   const [cafes, setCafes] = useState<Cafe[]>([])
 
   const fetchCafes = () => {
-    fetch('http://localhost:8000/cafes')
+    fetch('http://localhost:8000/cafes/')
     .then((response) => response.json())
     .then(cafesList => {
       setCafes(cafesList)
@@ -27,4 +28,3 @@ export function Cafes() {
     </div>
   );
 }
-

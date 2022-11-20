@@ -16,12 +16,13 @@ app.add_middleware(
 
 @app.on_event("startup")
 def configure():
+    database.Base.metadata.drop_all(bind=database.engine)
     database.Base.metadata.create_all(bind=database.engine)
 
     db = database.SessionLocal()
     for cafe in seeds.INITIAL_DATA['cafes']:
         print(cafe)
-        #crud.create_cafe(db, schemas.CafeCreate(**cafe))
+        crud.create_cafe(db, schemas.CafeCreate(**cafe))
 
     db.close()
 
@@ -37,7 +38,7 @@ def get_db():
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/cafes/", response_model=List[schemas.Cafe])
+@app.get("/cafes", response_model=List[schemas.Cafe])
 def read_cafes(db: Session = Depends(get_db)):
     cafes = crud.get_cafes(db)
     return cafes

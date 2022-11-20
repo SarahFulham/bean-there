@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.dialects.postgresql import JSONB, ARRAY
 from sqlalchemy.ext.mutable import MutableDict
 
 import database
@@ -12,3 +12,4 @@ class Cafe(database.Base):
     name = Column(String)
     address = Column(String)
     features = Column(MutableDict.as_mutable(JSONB))
+    images = Column(ARRAY(String))
