@@ -1,12 +1,18 @@
 from typing import List
 from http.client import HTTPException
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 import crud, models, schemas
 import database
 import seeds
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*']
+)
 
 @app.on_event("startup")
 def configure():
