@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { CafeCard } from './CafeCard';
 import './Cafes.css';
-
-interface ServerCafe {
-  name: string,
-  address: string,
-  features: Map<string, string>
-}
+import { Cafe } from './types';
 
 export function Cafes() {
-  const [cafes, setCafes] = useState<ServerCafe[]>([])
+  const [cafes, setCafes] = useState<Cafe[]>([])
 
   const fetchCafes = () => {
     fetch('http://localhost:8000/cafes')
@@ -18,12 +14,15 @@ export function Cafes() {
     })
   }
 
-  fetchCafes()
+
+  useEffect(() => {
+    fetchCafes()
+  }, [])
 
   return (
     <div className="Cafes">
       {cafes.map((cafe) => {
-        return (<div>{cafe.name}</div>)
+        return (<CafeCard key={cafe.id} cafe={cafe}/>)
       })}
     </div>
   );
